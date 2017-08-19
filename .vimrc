@@ -1,4 +1,18 @@
-" Most commands taken from this:  https://github.com/amix/vimrc/blob/master/vimrcs/basic.vim as an entry point.
+" Started with adding some commands from here https://github.com/amix/vimrc/blob/master/vimrcs/basic.vim
+" but it has become a collection of things from random resources.
+" Nothing is mine, as of now.
+
+"Configuring Vundle, a package manager
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+" List of Plugins
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'vim-airline/vim-airline'
+
+call vundle#end()
+
+filetype plugin indent on
 
 " Turn on syntax highlighting
 syntax on
@@ -15,7 +29,7 @@ set ruler
 " [DISABLING THIS FOR NOW] Ignore case when searching
 " set ignorecase
 
-" When searching try to be smart about cases 
+" When searching try to be smart about cases
 set smartcase
 
 " Highlight search results
@@ -25,10 +39,10 @@ set hlsearch
 :nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
 
 " Makes search act like search in modern browsers
-set incsearch 
+set incsearch
 
 " Don't redraw while executing macros (good performance config)
-set lazyredraw 
+set lazyredraw
 
 " For regular expressions turn magic on
 set magic
@@ -59,4 +73,8 @@ vnoremap <silent> # :<C-U>
   \gvy?<C-R><C-R>=substitute(
   \escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
   \gV:call setreg('"', old_reg, old_regtype)<CR>
+
+" Highlight trailing spaces,etc
+:highlight ExtraWhitespace ctermbg=red guibg=red
+:match ExtraWhitespace /\s\+$/
 
