@@ -78,3 +78,7 @@ vnoremap <silent> # :<C-U>
 :highlight ExtraWhitespace ctermbg=red guibg=red
 :match ExtraWhitespace /\s\+$/
 
+" Keep text selected when changing indentation in visual mode using < >
+vnoremap < <gv
+vnoremap > >gv
+
