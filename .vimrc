@@ -20,6 +20,9 @@ syntax on
 " Display line numbers
 set nu
 
+"Display relative numbers, makes it easy to figure out how much to jump
+set relativenumber
+
 " Shows a bar in the bottom when using tab completion for commands in the command mode, to see the available options conveniently.
 set wildmenu
 
@@ -91,3 +94,16 @@ set hidden
 " Cycle/Move across buffers using CTRL + H and CTRL + L
 :map <C-L> :bnext<CR>
 :map <C-H> :bprevious<CR>
+
+" Makes CtrlP fuzzy searching work more like the one I use in Sublime Text
+" Specifically, this will match spaces with underscores
+let g:ctrlp_abbrev = {
+    \ 'gmode': 't',
+    \ 'abbrevs': [
+        \ {
+        \ 'pattern': '\(^@.\+\|\\\@<!:.\+\)\@<! ',
+        \ 'expanded': '_',
+        \ 'mode': 'pfrz',
+        \ },
+        \ ]
+    \ }
