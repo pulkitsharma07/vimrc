@@ -9,7 +9,7 @@ call vundle#begin()
 " List of Plugins
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'vim-airline/vim-airline'
-
+Plugin 'ctrlpvim/ctrlp.vim'
 call vundle#end()
 
 filetype plugin indent on
@@ -82,3 +82,12 @@ vnoremap <silent> # :<C-U>
 vnoremap < <gv
 vnoremap > >gv
 
+" Enable buffer list for vim-airline
+let g:airline#extensions#tabline#enabled = 1
+
+" Need to enable this to goto another buffer, without saving the current one.
+set hidden
+
+" Cycle/Move across buffers using CTRL + H and CTRL + L
+:map <C-L> :bnext<CR>
+:map <C-H> :bprevious<CR>
