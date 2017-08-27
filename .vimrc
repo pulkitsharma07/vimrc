@@ -10,9 +10,9 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'vim-airline/vim-airline'
 Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'scrooloose/nerdtree'
-Plugin 'xolox/vim-misc'
-Plugin 'xolox/vim-easytags'
+"Plugin 'scrooloose/nerdtree'
+"Plugin 'xolox/vim-misc'
+"Plugin 'xolox/vim-easytags'
 call vundle#end()
 
 filetype plugin indent on
@@ -98,9 +98,9 @@ set hidden
 :map <C-L> :bnext<CR>
 :map <C-H> :bprevious<CR>
 
-" Close buffer with CTRL + W, (Opens the previous buffer after closing the
+" Close buffer with CTRL + C, (Opens the previous buffer after closing the
 " current one, this makes closing work as expected)
-:nnoremap c :bp\|bd #<CR>
+:map <C-C> :bp\|bd #<CR>
 
 " Makes CtrlP fuzzy searching work more like the one I use in Sublime Text
 " Specifically, this will match spaces with underscores
@@ -116,16 +116,16 @@ let g:ctrlp_abbrev = {
     \ }
 
 " Open NERDTree automatically when starting vim for a directory
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
+"autocmd StdinReadPre * let s:std_in=1
+"autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
 
 " Close Vim if no active buffers are present. (need to close NERDTree manually
 " as it is the last window)
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+"autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " easytags config:
 " Make tagging async
 " Tag all the files (instead of the current one) WARNING: Do not open vim in a
 " big directory structure ( eg. ~/ )
-let g:easytags_async = 1
+"let g:easytags_async = 1
 "let g:easytags_autorecurse = 1
