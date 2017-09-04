@@ -10,9 +10,13 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'vim-airline/vim-airline'
 Plugin 'ctrlpvim/ctrlp.vim'
-"Plugin 'scrooloose/nerdtree'
-"Plugin 'xolox/vim-misc'
-"Plugin 'xolox/vim-easytags'
+Plugin 'scrooloose/nerdtree'
+Plugin 'ludovicchabant/vim-gutentags'
+Plugin 'tpope/vim-commentary'
+Plugin 'jiangmiao/auto-pairs'
+Plugin 'elixir-lang/vim-elixir'
+"Plugin 'junegunn/fzf'
+"Plugin 'wincent/command-t'
 call vundle#end()
 
 filetype plugin indent on
@@ -98,30 +102,34 @@ set hidden
 :map <C-L> :bnext<CR>
 :map <C-H> :bprevious<CR>
 
+" Open new buffer with CTRL + T
+:map <C-T> :enew<CR>
+
 " Close buffer with CTRL + C, (Opens the previous buffer after closing the
 " current one, this makes closing work as expected)
 :map <C-C> :bp\|bd #<CR>
 
+let g:ctrlp_regexp = 1
 " Makes CtrlP fuzzy searching work more like the one I use in Sublime Text
 " Specifically, this will match spaces with underscores
 let g:ctrlp_abbrev = {
     \ 'gmode': 't',
     \ 'abbrevs': [
         \ {
-        \ 'pattern': '\(^@.\+\|\\\@<!:.\+\)\@<! ',
-        \ 'expanded': '_',
+        \ 'pattern': ' ',
+        \ 'expanded': '.*',
         \ 'mode': 'pfrz',
         \ },
         \ ]
     \ }
 
 " Open NERDTree automatically when starting vim for a directory
-"autocmd StdinReadPre * let s:std_in=1
-"autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
 
 " Close Vim if no active buffers are present. (need to close NERDTree manually
 " as it is the last window)
-"autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " easytags config:
 " Make tagging async
@@ -129,3 +137,22 @@ let g:ctrlp_abbrev = {
 " big directory structure ( eg. ~/ )
 "let g:easytags_async = 1
 "let g:easytags_autorecurse = 1
+let g:airline_section_y = "%{gutentags#statusline('Generating Tags Bro......')}"
+
+let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
+
+"The Silver Searcher
+if executable('ag')
+  " Use ag over grep
+  set grepprg=ag\ --nocolor
+
+  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+endif
+
+" bind K to grep for word under cursor
+nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
+
+
+" bind :Ag to grep shortcut
+command -nargs=+ -complete=file -bar Ag silent! grep! "<args>"|cwindow|redraw!
