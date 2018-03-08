@@ -15,6 +15,7 @@ Plugin 'ludovicchabant/vim-gutentags'
 Plugin 'tpope/vim-commentary'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'elixir-lang/vim-elixir'
+Plugin 'tomasiser/vim-code-dark'
 "Plugin 'junegunn/fzf'
 "Plugin 'wincent/command-t'
 call vundle#end()
@@ -37,7 +38,7 @@ set wildmenu
 set ruler
 
 " [DISABLING THIS FOR NOW] Ignore case when searching
-" set ignorecase
+set ignorecase
 
 " When searching try to be smart about cases
 set smartcase
@@ -65,6 +66,8 @@ set tm=500
 
 " Awesome theme : https://github.com/sickill/vim-monokai
 colorscheme monokai
+" colorscheme codedark
+" "
 
 " 1 TAB = 2 SPACES
 set shiftwidth=2 softtabstop=2 expandtab
@@ -109,7 +112,9 @@ set hidden
 " current one, this makes closing work as expected)
 :map <C-C> :bp\|bd #<CR>
 
+" Use CtrlP in regex mode by default
 let g:ctrlp_regexp = 1
+
 " Makes CtrlP fuzzy searching work more like the one I use in Sublime Text
 " Specifically, this will match spaces with underscores
 let g:ctrlp_abbrev = {
@@ -127,6 +132,9 @@ let g:ctrlp_abbrev = {
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
 
+" Toggle NERDTree
+:map <Leader>c :NERDTreeToggle<CR>
+
 " Close Vim if no active buffers are present. (need to close NERDTree manually
 " as it is the last window)
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
@@ -138,6 +146,7 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 "let g:easytags_async = 1
 "let g:easytags_autorecurse = 1
 let g:airline_section_y = "%{gutentags#statusline('Generating Tags Bro......')}"
+let g:airline_theme = 'codedark'
 
 let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
 
@@ -156,3 +165,18 @@ nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 
 " bind :Ag to grep shortcut
 command -nargs=+ -complete=file -bar Ag silent! grep! "<args>"|cwindow|redraw!
+
+" Auto close quickfix when exiting Vim.
+function! s:CloseIfOnlyControlWinLeft()
+  if winnr("$") != 1
+    return
+  endif
+  if (exists("t:NERDTreeBufName") && bufwinnr(t:NERDTreeBufName) != -1)
+        \ || &buftype == 'quickfix'
+    q
+  endif
+endfunction
+augroup CloseIfOnlyControlWinLeft
+  au!
+  au BufEnter * call s:CloseIfOnlyControlWinLeft()
+augroup END
