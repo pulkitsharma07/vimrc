@@ -16,8 +16,6 @@ Plugin 'tpope/vim-commentary'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'elixir-lang/vim-elixir'
 Plugin 'tomasiser/vim-code-dark'
-"Plugin 'junegunn/fzf'
-"Plugin 'wincent/command-t'
 call vundle#end()
 
 filetype plugin indent on
