@@ -16,6 +16,7 @@ Plugin 'tpope/vim-commentary'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'elixir-lang/vim-elixir'
 Plugin 'tomasiser/vim-code-dark'
+Plugin 'liuchengxu/space-vim-dark'
 call vundle#end()
 
 filetype plugin indent on
@@ -62,10 +63,8 @@ set novisualbell
 set t_vb=
 set tm=500
 
-" Awesome theme : https://github.com/sickill/vim-monokai
-colorscheme monokai
-" colorscheme codedark
-" "
+let g:space_vim_dark_background = 234
+colorscheme space-vim-dark
 
 " 1 TAB = 2 SPACES
 set shiftwidth=2 softtabstop=2 expandtab
