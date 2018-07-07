@@ -129,11 +129,14 @@ let g:ctrlp_abbrev = {
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
 
-" Toggle NERDTree
+" Close NERDTree along with the quickfix window
 :map <Leader>c :NERDTreeToggle<CR> <bar> :cclose<CR>
 
 " Disable Line numbers
 :map <Leader>q :set norelativenumber<CR> <bar> :set nonumber<CR>
+
+" Enable Line numbers
+:map <Leader>w :set number<CR> <bar> :set relativenumber<CR>
 
 " Close Vim if no active buffers are present. (need to close NERDTree manually
 " as it is the last window)
