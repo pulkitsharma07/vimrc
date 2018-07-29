@@ -2,6 +2,9 @@
 " but it has become a collection of things from random resources.
 " Nothing is mine, as of now.
 
+
+set shell=zsh
+
 "Configuring Vundle, a package manager
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -183,3 +186,7 @@ augroup CloseIfOnlyControlWinLeft
   au!
   au BufEnter * call s:CloseIfOnlyControlWinLeft()
 augroup END
+
+" Run the selected command (make sure .zshenv is a symlink to .zshrc) and
+" :set shell=zsh
+vnoremap r :'<,'>w !zsh<cr>
