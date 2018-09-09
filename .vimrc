@@ -156,21 +156,18 @@ let g:airline_theme = 'codedark'
 
 let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
 
-"The Silver Searcher
-if executable('ag')
-  " Use ag over grep
-  set grepprg=ag\ --nocolor
+" Time for rg instead of ag, Thanks: https://elliotekj.com/2016/11/22/setup-ctrlp-to-use-ripgrep-in-vim/
+" and http://www.wezm.net/technical/2016/09/ripgrep-with-vim/
+if executable('rg')
+  set grepprg=rg\ --vimgrep\ --no-heading
+  set grepformat=%f:%l:%c:%m,%f:%l:%m
 
-  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+  let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
+  let g:ctrlp_use_caching = 0
 endif
 
 " bind K to grep for word under cursor
 nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
-
-
-" bind :Ag to grep shortcut
-command -nargs=+ -complete=file -bar Ag silent! grep! "<args>"|cwindow|redraw!
 
 " Auto close quickfix when exiting Vim.
 function! s:CloseIfOnlyControlWinLeft()
