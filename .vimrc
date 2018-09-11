@@ -169,6 +169,9 @@ endif
 " bind K to grep for word under cursor
 nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 
+" bind :Ag to grep shortcut
+command -nargs=+ -complete=file -bar Ag silent! grep! "<args>"|cwindow|redraw!
+
 " Auto close quickfix when exiting Vim.
 function! s:CloseIfOnlyControlWinLeft()
   if winnr("$") != 1
