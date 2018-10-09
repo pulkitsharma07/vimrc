@@ -190,3 +190,6 @@ augroup END
 " Run the selected command (make sure .zshenv is a symlink to .zshrc) and
 " :set shell=zsh
 vnoremap r :'<,'>w !zsh<cr>
+
+" Highlight the column, for ensuring line length is under control
+set colorcolumn=100
