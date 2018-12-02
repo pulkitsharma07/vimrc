@@ -194,3 +194,5 @@ vnoremap r :'<,'>w !zsh<cr>
 
 " Highlight the column, for ensuring line length is under control
 set colorcolumn=100
+
+:autocmd BufNewFile  *.cpp  0r ~/.vim/templates/cpp.cpp
