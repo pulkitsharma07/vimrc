@@ -20,6 +20,7 @@ Plugin 'jiangmiao/auto-pairs'
 Plugin 'elixir-lang/vim-elixir'
 Plugin 'tomasiser/vim-code-dark'
 Plugin 'liuchengxu/space-vim-dark'
+Plugin 'joshdick/onedark.vim'
 Plugin 'leafgarland/typescript-vim'
 call vundle#end()
 
@@ -67,8 +68,7 @@ set novisualbell
 set t_vb=
 set tm=500
 
-let g:space_vim_dark_background = 234
-colorscheme space-vim-dark
+colorscheme onedark
 
 " 1 TAB = 2 SPACES
 set shiftwidth=2 softtabstop=2 expandtab
