@@ -196,3 +196,7 @@ vnoremap r :'<,'>w !zsh<cr>
 set colorcolumn=100
 
 :autocmd BufNewFile  *.cpp  0r ~/.vim/templates/cpp.cpp
+
+set foldmethod=indent
+set foldnestmax=10
+set foldlevel=2
