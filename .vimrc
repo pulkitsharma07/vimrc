@@ -168,7 +168,7 @@ if executable('rg')
 endif
 
 " bind K to grep for word under cursor
-nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
+nnoremap K :exe 'Ag' expand('<cword>')<cr>
 
 " bind :Ag to grep shortcut
 command -nargs=+ -complete=file -bar Ag silent! grep! "<args>"|cwindow|redraw!
