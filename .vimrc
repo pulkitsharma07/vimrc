@@ -12,9 +12,9 @@ call vundle#begin()
 " List of Plugins
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'vim-airline/vim-airline'
-Plugin 'ctrlpvim/ctrlp.vim'
+" Plugin 'ctrlpvim/ctrlp.vim'
+" Plugin 'ludovicchabant/vim-gutentags'
 Plugin 'scrooloose/nerdtree'
-Plugin 'ludovicchabant/vim-gutentags'
 Plugin 'tpope/vim-commentary'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'elixir-lang/vim-elixir'
@@ -22,6 +22,10 @@ Plugin 'tomasiser/vim-code-dark'
 Plugin 'liuchengxu/space-vim-dark'
 Plugin 'joshdick/onedark.vim'
 Plugin 'leafgarland/typescript-vim'
+Plugin 'tpope/vim-fugitive'
+Plugin 'editorconfig/editorconfig-vim'
+Plugin 'junegunn/fzf.vim'
+Plugin 'neoclide/coc.nvim'
 call vundle#end()
 
 filetype plugin indent on
@@ -113,22 +117,6 @@ set hidden
 " current one, this makes closing work as expected)
 :map <C-C> :bp\|bd #<CR>
 
-" Use CtrlP in regex mode by default
-let g:ctrlp_regexp = 1
-
-" Makes CtrlP fuzzy searching work more like the one I use in Sublime Text
-" Specifically, this will match spaces with underscores
-let g:ctrlp_abbrev = {
-    \ 'gmode': 't',
-    \ 'abbrevs': [
-        \ {
-        \ 'pattern': ' ',
-        \ 'expanded': '.*',
-        \ 'mode': 'pfrz',
-        \ },
-        \ ]
-    \ }
-
 " Open NERDTree automatically when starting vim for a directory
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
@@ -152,7 +140,7 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 " big directory structure ( eg. ~/ )
 "let g:easytags_async = 1
 "let g:easytags_autorecurse = 1
-let g:airline_section_y = "%{gutentags#statusline('Generating Tags Bro......')}"
+" let g:airline_section_y = "%{gutentags#statusline('Generating Tags Bro......')}"
 let g:airline_theme = 'codedark'
 
 let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
@@ -197,6 +185,8 @@ set colorcolumn=100
 
 :autocmd BufNewFile  *.cpp  0r ~/.vim/templates/cpp.cpp
 
-set foldmethod=indent
-set foldnestmax=10
-set foldlevel=2
+set spell spelllang=en_us
+
+set rtp+=/usr/local/opt/fzf
+:map <C-P> :Files<CR>
+:map <C-T> :enew<CR>
