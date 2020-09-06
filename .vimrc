@@ -6,9 +6,8 @@
 set shell=zsh
 
 "Configuring Vundle, a package manager
-set rtp+=~/.vim/bundle/Vundle.vim
+set rtp+=~/.vim/plugin/Vundle.vim
 call vundle#begin()
-
 " List of Plugins
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'vim-airline/vim-airline'
@@ -25,7 +24,7 @@ Plugin 'leafgarland/typescript-vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'editorconfig/editorconfig-vim'
 Plugin 'junegunn/fzf.vim'
-Plugin 'neoclide/coc.nvim'
+" Plugin 'neoclide/coc.nvim'
 call vundle#end()
 
 filetype plugin indent on
@@ -145,7 +144,8 @@ let g:airline_theme = 'codedark'
 
 let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
 
-" Time for rg instead of ag, Thanks: https://elliotekj.com/2016/11/22/setup-ctrlp-to-use-ripgrep-in-vim/
+" #### --------------------------------- SEARCH CONFIG [BEGIN] -----------------####
+"  Time for rg instead of ag, Thanks: https://elliotekj.com/2016/11/22/setup-ctrlp-to-use-ripgrep-in-vim/
 " and http://www.wezm.net/technical/2016/09/ripgrep-with-vim/
 if executable('rg')
   set grepprg=rg\ --vimgrep\ --no-heading
@@ -159,7 +159,9 @@ endif
 nnoremap K :exe 'Ag' expand('<cword>')<cr>
 
 " bind :Ag to grep shortcut
+" This actually triggers Rg (ripgrep)
 command -nargs=+ -complete=file -bar Ag silent! grep! "<args>"|cwindow|redraw!
+" #### --------------------------------- SEARCH CONFIG [END] -----------------####
 
 " Auto close quickfix when exiting Vim.
 function! s:CloseIfOnlyControlWinLeft()
